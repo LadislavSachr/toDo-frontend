@@ -1,7 +1,7 @@
-import Root from './components/Root'
+import Root from './components/root/Root'
 import Receiver from './components/Receiver'
-import Login from './components/Login'
-import Register from './components/Register'
+import Login from './components/login/Login'
+import Register from './components/register/Register'
 import {RouterProvider, createBrowserRouter, createRoutesFromElements, Route} from 'react-router-dom'
 import './App.css'
 
