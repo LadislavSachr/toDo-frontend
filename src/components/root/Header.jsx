@@ -14,11 +14,9 @@ function Header(){
     }
 
     return (
-        <div>
-            <div>
-                <h1>To-Do list!</h1>
-                {auth?<button onClick={handleClick}>Logout!</button>:""}
-            </div>
+        <div className='header' >
+            <h1>To-Do list!</h1>
+            {auth?<button onClick={handleClick}>Logout!</button>:<p>In order to use this application, you need to be logged in!</p>}
         </div>
     )
 }

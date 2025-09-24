@@ -14,7 +14,8 @@ function Login(){
     const dispatch = useDispatch();
     const auth = useSelector(isAuthenticated);
 
-    async function handleClick(){
+    async function handleSubmit(e){
+        e.preventDefault();
         const response = await login(email,password);
         if(response.ok){
             dispatch(authenticate());
@@ -25,18 +26,24 @@ function Login(){
         return <Navigate to="../"/>
     }else{
         return(
-            <div>
-                <h2>In order to use this application you need to be logged in!</h2>
-                <div>
-                    <label htmlFor="email">Email:</label><br/>
-                    <input type="text" name="email" id="email" value={email} onChange={(e)=>setEmail(e.target.value)}/><br/>
-                    <label htmlFor="password">Password:</label><br/>
-                    <input type="text" name="password" id="password" value={password} onChange={(e)=>setPassword(e.target.value)}/><br/>
-                    <button onClick={handleClick} >Login!</button><br/>
-                    <FontAwesomeIcon icon={faFacebook} />
-                    <FontAwesomeIcon icon={faGoogle} />
+            <div className='logReg'>
+                <h2>Login!</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className='form-group'>
+                        <label htmlFor="email">Email:</label><br/>
+                        <input type="text" name="email" id="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                    </div>
+                    <div className='form-group'>
+                        <label htmlFor="password">Password:</label><br/>
+                        <input type="text" name="password" id="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                    </div>
+                    <input className="formButton" type="submit" value="Login!" readOnly/>
+                    <div className='OAuth'>
+                        <FontAwesomeIcon className='authIcon' icon={faFacebook} />
+                        <FontAwesomeIcon className='authIcon' icon={faGoogle} />
+                    </div>
                     <p>Don't have account yet? Register <NavLink to='../register'>here</NavLink>!</p>
-                </div>
+                </form>
             </div>
         )
     }
