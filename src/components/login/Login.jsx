@@ -35,12 +35,12 @@ function Login(){
                     </div>
                     <div className='form-group'>
                         <label htmlFor="password">Password:</label><br/>
-                        <input type="text" name="password" id="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                        <input type="password" name="password" id="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                     </div>
                     <input className="formButton" type="submit" value="Login!" readOnly/>
                     <div className='OAuth'>
-                        <FontAwesomeIcon className='authIcon' icon={faFacebook} />
-                        <FontAwesomeIcon className='authIcon' icon={faGoogle} />
+                        <FontAwesomeIcon className='authIcon' icon={faFacebook} onClick={()=>{window.location.href = import.meta.env.VITE_FACEBOOK_LOGIN_URL}}/>
+                        <FontAwesomeIcon className='authIcon' icon={faGoogle} onClick={()=>{window.location.href = import.meta.env.VITE_GOOGLE_LOGIN_URL}}/>
                     </div>
                     <p>Don't have account yet? Register <NavLink to='../register'>here</NavLink>!</p>
                 </form>

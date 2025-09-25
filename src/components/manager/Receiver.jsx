@@ -36,18 +36,24 @@ function Receiver(){
     }
 
     return(
-        <div>
+        <div className='receiver'>
+            <h2>What's your next  task?</h2>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="task">What's your next  task?</label><br/>
-                <input type="text" name="task" id="task" maxLength="50" value={text} onChange={changeHandler} required/>{count}/50<br/>
-                <label htmlFor="category">Category:</label>
-                <select name="category" id="category" value={category} onChange={(e)=>setCategory(e.target.value)} required>
-                    <option value="" disabled hidden>Select category</option>
-                    <option value="work">Work</option>
-                    <option value="school">School</option>
-                    <option value="home">Home</option>
-                </select><br />
-                <input type="submit" value="Add it!" readOnly/>
+                <div className='form-group'>
+                    <label htmlFor="task">Task:</label><br/>
+                    <input className='taskInput' type="text" name="task" id="task" maxLength="150" value={text} onChange={changeHandler} required/>
+                    <span className='counter'>{count}/150</span>
+                </div>
+                <div className='form-group'>
+                    <label htmlFor="category">Category:</label>
+                    <select name="category" id="category" value={category} onChange={(e)=>setCategory(e.target.value)} required>
+                        <option value="" disabled hidden>Select category</option>
+                        <option value="work">Work</option>
+                        <option value="school">School</option>
+                        <option value="home">Home</option>
+                    </select>
+                </div>
+                <input className='formButton' type="submit" value="Add it!" readOnly/>
             </form>
         </div>
     )
