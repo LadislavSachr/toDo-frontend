@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getTasks, maxId } from './util';
 
+// loads tasks from backend/database
 export const loadTasks = createAsyncThunk(
     'tasks/loadTasks',
     async()=>{
@@ -26,6 +27,7 @@ const options = {
             state.tasks = state.tasks.filter(task=>task.task_id!==id);
         }
     },
+    // extraReducers that control promise state of loadTasks
     extraReducers: (builder)=>{
         builder.addCase(loadTasks.pending,(state)=>{
             state.isLoading=true;
@@ -36,6 +38,7 @@ const options = {
             state.failedToLoad=false;
             state.tasks = action.payload;
             state.currentMaxId = maxId(action.payload);
+            // maxId - helper function that returns maximum task_id from array of tasks
         })
         .addCase(loadTasks.rejected,(state)=>{
             state.isLoading=false;
@@ -47,7 +50,7 @@ const options = {
 const tasksSlice = createSlice(options);
 
 export const maximumId = (state) => state.tasks.currentMaxId;
-export const loading = (state) => state.tasks.isLoading;
+export const loading = (state) => state.tasks.isLoading; 
 export const failed = (state) => state.tasks.failedToLoad;
 export const getAllTasks = (state) => state.tasks.tasks;
 export const { addTask, deleteTask } = tasksSlice.actions;

@@ -7,10 +7,10 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 function Task(props){
     const [color,setColor] = useState("");
-    const [hover,setHover] = useState(true);
+    const [hover,setHover] = useState(true); // state that control if we are hovering over the entire component
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(()=>{ // sets a color for our task based on category on first render
         switch(props.data.category){
             case 'work': 
                 setColor('rgba(4, 170, 109, 0.3)');
@@ -25,18 +25,24 @@ function Task(props){
         }
     },[])
 
-    async function handleClick(){
+    async function handleClick(){ // handles click on the entire task
         const id = props.data.task_id;
-        const response = await deleteTaskAPI(id);
-        if(response.ok){
+        const response = await deleteTaskAPI(id); // removes task from database
+        if(response.ok){ // if removal from database was successfull it deletes it from store/frontend
             dispatch(deleteTask({id}));
         }else{
             window.alert('Whoops! Something went wrong!');
+            window.location.reload() // reload page to sync up our backend/front
         }
     }
 
     return(
-        <a onClick={handleClick} className='task' style={{backgroundColor:color}} onMouseEnter={()=>setHover(false)} onMouseLeave={()=>setHover(true)}>
+        <a className='task' style={{backgroundColor:color}} 
+            onClick={handleClick} 
+            onMouseEnter={()=>setHover(false)} 
+            onMouseLeave={()=>setHover(true)}
+        >
+            {/*onMouseEnter/onMouseLeave - event listeners that change state of our hover*/}
             <p>{props.data.task}</p><div hidden={hover}><FontAwesomeIcon icon={faXmark}/></div>
         </a>
     )

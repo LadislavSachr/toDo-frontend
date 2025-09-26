@@ -17,11 +17,11 @@ function Register(){
 
     async function handleSubmit(e){
         e.preventDefault()
-        if(firstPassword===secondPassword){
+        if(firstPassword===secondPassword){ // checks if the passwords are matching
             const response = await register(firstName,lastName,email,firstPassword); // fetches data to server
             if(response.ok){ // checks if response is okay and redirects user to login if it's true
                 navigate('../login');
-            }else if(response.status===409){ 
+            }else if(response.status===409){ // if 409 then a user already exists in database
                 window.alert("User with that email already exists!")
                 setEmail("");
                 setFirstPassword("");
@@ -66,15 +66,27 @@ function Register(){
                     </div>
                     <div className='form-group'>
                         <label htmlFor="email">Email:</label><br />
-                        <input type="email" name="email" id="email" value={email} onChange={(e)=>setEmail(e.target.value)} required/>
+                        <input type="email" name="email" id="email" 
+                            value={email} 
+                            onChange={(e)=>setEmail(e.target.value)} 
+                            required
+                        />
                     </div>
                     <div className='form-group'>
                         <label htmlFor="password">Password (at least 8 characters):</label><br />
-                        <input type="password" name="password" id="password" value={firstPassword} onChange={(e)=>setFirstPassword(e.target.value)} minLength="8" />
+                        <input type="password" name="password" id="password" 
+                            value={firstPassword} 
+                            onChange={(e)=>setFirstPassword(e.target.value)} 
+                            minLength="8" 
+                        />
                     </div>
                     <div className='form-group'>
                         <label htmlFor="password2">Confirm password:</label><br />
-                        <input type="password" name="password2" id="password2" value={secondPassword} onChange={(e)=>setSecondPassword(e.target.value)} required/>
+                        <input type="password" name="password2" id="password2" 
+                            value={secondPassword} 
+                            onChange={(e)=>setSecondPassword(e.target.value)} 
+                            required
+                        />
                     </div>
                     <input className="formButton" type="submit" value="Register!"/>
                     <p>Already have an account? Login <NavLink to='../login'>here</NavLink>!</p>

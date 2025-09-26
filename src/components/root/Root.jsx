@@ -8,13 +8,13 @@ import { authenticateAPI } from './util'
 function Root(){
     const dispatch = useDispatch();
 
-    useEffect(()=>{
+    useEffect(()=>{ // on each render authenticates user [asks backend]
         const auth = async () => {
             const response = await authenticateAPI();
             if(response.ok){
-                dispatch(authenticate());
+                dispatch(authenticate()); // if user is authenticated on backend then it authenticates on frontend
             }else{
-                dispatch(unAuthenticate());
+                dispatch(unAuthenticate()); // if user isn't authenticated on backend then it unAuthenticates on frontend
             }
         }
         auth();

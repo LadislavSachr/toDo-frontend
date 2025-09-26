@@ -8,7 +8,7 @@ function Receiver(){
     const [text, setText] = useState(""); // input value
     const [category, setCategory] = useState("");
     const dispatch = useDispatch();
-    const currentId = useSelector(maximumId);
+    const currentId = useSelector(maximumId); // gets a maximum of task_id in array of tasks [used to generate a new task/task_id]
 
     // changes values of count and text based on input
     function changeHandler(e){
@@ -24,8 +24,8 @@ function Receiver(){
             task:text,
             category:category
         }
-        const response = await addTaskAPI(task);
-        if(response.ok){
+        const response = await addTaskAPI(task); // fetches a new task to backend and saves it in database
+        if(response.ok){ // if a request was approved then we add the task to our store/frontend
             const json = await response.json();
             task.task=json.sanitized; // backend returns sanitized text that we then save to our store
             dispatch(addTask(task));
@@ -34,6 +34,7 @@ function Receiver(){
             setCount(0);
         }else{
             window.alert('Whoops! Something went wrong!');
+            window.location.reload(); // reloads a page to make sure backend/frontend are synced up
         }
     }
 
@@ -43,12 +44,20 @@ function Receiver(){
             <form onSubmit={handleSubmit}>
                 <div className='form-group'>
                     <label htmlFor="task">Task:</label><br/>
-                    <input className='taskInput' type="text" name="task" id="task" maxLength="150" value={text} onChange={changeHandler} required/>
+                    <input className='taskInput' type="text" name="task" id="task" maxLength="150" 
+                        value={text} 
+                        onChange={changeHandler} 
+                        required
+                    />
                     <span className='counter'>{count}/150</span>
                 </div>
                 <div className='form-group'>
                     <label htmlFor="category">Category:</label>
-                    <select name="category" id="category" value={category} onChange={(e)=>setCategory(e.target.value)} required>
+                    <select name="category" id="category" 
+                        value={category} 
+                        onChange={(e)=>setCategory(e.target.value)} 
+                        required
+                    >
                         <option value="" disabled hidden>Select category</option>
                         <option value="work">Work</option>
                         <option value="school">School</option>

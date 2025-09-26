@@ -12,17 +12,17 @@ function Login(){
     const [password, setPassword] = useState("");
 
     const dispatch = useDispatch();
-    const auth = useSelector(isAuthenticated);
+    const auth = useSelector(isAuthenticated); // variable that checks if user is authenticated
 
-    async function handleSubmit(e){
+    async function handleSubmit(e){ // submit handler of form
         e.preventDefault();
-        const response = await login(email,password);
-        if(response.ok){
+        const response = await login(email,password); // logs in user through backend
+        if(response.ok){ // if backend confirms then we authenticated user on frontend
             dispatch(authenticate());
         }
     }
 
-    if(auth){
+    if(auth){ // checks if user is authenticated and if yes navigates user to main page
         return <Navigate to="../"/>
     }else{
         return(
@@ -31,16 +31,27 @@ function Login(){
                 <form onSubmit={handleSubmit}>
                     <div className='form-group'>
                         <label htmlFor="email">Email:</label><br/>
-                        <input type="email" name="email" id="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                        <input type="email" name="email" id="email" 
+                            value={email} 
+                            onChange={(e)=>setEmail(e.target.value)}
+                        />
                     </div>
                     <div className='form-group'>
                         <label htmlFor="password">Password:</label><br/>
-                        <input type="password" name="password" id="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                        <input type="password" name="password" id="password" 
+                            value={password} 
+                            onChange={(e)=>setPassword(e.target.value)}
+                        />
                     </div>
                     <input className="formButton" type="submit" value="Login!" readOnly/>
                     <div className='OAuth'>
-                        <FontAwesomeIcon className='authIcon' icon={faFacebook} onClick={()=>{window.location.href = import.meta.env.VITE_FACEBOOK_LOGIN_URL}}/>
-                        <FontAwesomeIcon className='authIcon' icon={faGoogle} onClick={()=>{window.location.href = import.meta.env.VITE_GOOGLE_LOGIN_URL}}/>
+                        {/* OAuth icons that have onClick function of redirecting a user to facebook/google backend endpoints */}
+                        <FontAwesomeIcon className='authIcon' icon={faFacebook} 
+                            onClick={()=>{window.location.href = import.meta.env.VITE_FACEBOOK_LOGIN_URL}}
+                        />
+                        <FontAwesomeIcon className='authIcon' icon={faGoogle} 
+                            onClick={()=>{window.location.href = import.meta.env.VITE_GOOGLE_LOGIN_URL}}
+                        />
                     </div>
                     <p>Don't have account yet? Register <NavLink to='../register'>here</NavLink>!</p>
                 </form>

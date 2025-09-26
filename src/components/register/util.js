@@ -1,5 +1,6 @@
 const base = import.meta.env.VITE_API_URL;
 
+// method to fetch a registration of a new user
 export const register = async (firstName, lastName, email, password) => {
     const user = {
         firstName,

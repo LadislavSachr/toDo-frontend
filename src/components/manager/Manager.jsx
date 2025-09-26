@@ -7,7 +7,7 @@ import { Navigate } from 'react-router-dom';
 function Manager(){
     const auth = useSelector(isAuthenticated);
 
-    if(!auth){
+    if(!auth){ // decides if a user is authenticated and if not send them to login page
         return <Navigate to='/login'/>
     }
     return(
