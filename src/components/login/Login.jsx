@@ -31,7 +31,7 @@ function Login(){
                 <form onSubmit={handleSubmit}>
                     <div className='form-group'>
                         <label htmlFor="email">Email:</label><br/>
-                        <input type="text" name="email" id="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                        <input type="email" name="email" id="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
                     </div>
                     <div className='form-group'>
                         <label htmlFor="password">Password:</label><br/>

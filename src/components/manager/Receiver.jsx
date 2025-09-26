@@ -26,6 +26,8 @@ function Receiver(){
         }
         const response = await addTaskAPI(task);
         if(response.ok){
+            const json = await response.json();
+            task.task=json.sanitized; // backend returns sanitized text that we then save to our store
             dispatch(addTask(task));
             setCategory("")
             setText("");

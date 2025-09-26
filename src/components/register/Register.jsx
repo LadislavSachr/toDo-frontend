@@ -46,11 +46,23 @@ function Register(){
                 <form onSubmit={handleSubmit}>
                     <div className='form-group'>
                         <label htmlFor="firstName">First name:</label><br />
-                        <input type="text" name="firstName" id="firstName" value={firstName} onChange={(e)=>setFirstName(e.target.value)} required/>
+                        <input type="text" name="firstName" id="firstName" 
+                            value={firstName} 
+                            onChange={(e)=>setFirstName(e.target.value)} 
+                            pattern='^[^<>"]*$' 
+                            title='Cannot contain these special characters: < > "'
+                            required
+                        />
                     </div>
                     <div className='form-group'>
                         <label htmlFor="lastName">Last name:</label><br />
-                        <input type="text" name="lastName" id="lastName" value={lastName} onChange={(e)=>setLastName(e.target.value)} required/>
+                        <input type="text" name="lastName" id="lastName" 
+                            value={lastName} 
+                            onChange={(e)=>setLastName(e.target.value)} 
+                            pattern='^[^<>"]*$'
+                            title='Cannot contain these special characters: < > "'
+                            required
+                        />
                     </div>
                     <div className='form-group'>
                         <label htmlFor="email">Email:</label><br />
