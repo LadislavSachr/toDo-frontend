@@ -26,7 +26,12 @@ function List(){
     }
 
     if(load){ // if statement deciding what to render based on loading/failed/loaded state
-        return (<div className='list'><h2>Loading your tasks!</h2></div>)
+        return (
+            <div className='list' style={{justifyContent:'center'}}>
+                <h2>Loading!</h2>
+                <div id='spinner'></div>
+            </div>
+        )
     }else if(fail){
         return (<div className='list'><h2>Failed to load tasks!</h2></div>)
     }else{

@@ -4,6 +4,8 @@ import { register } from "./util";
 import { useSelector } from 'react-redux'
 import { isAuthenticated } from '../../store/authenticateSlice'
 import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { switchLoading } from "../../store/isLoadingSlice";
 
 function Register(){
     const [email, setEmail] = useState("");
@@ -12,11 +14,13 @@ function Register(){
     const [firstPassword, setFirstPassword] = useState("");
     const [secondPassword, setSecondPassword] = useState("");
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const auth = useSelector(isAuthenticated);
 
     async function handleSubmit(e){
-        e.preventDefault()
+        e.preventDefault();
+        dispatch(switchLoading(true));
         if(firstPassword===secondPassword){ // checks if the passwords are matching
             const response = await register(firstName,lastName,email,firstPassword); // fetches data to server
             if(response.ok){ // checks if response is okay and redirects user to login if it's true
@@ -30,6 +34,7 @@ function Register(){
                 window.alert("Whoops! Something went wrong, try again later!");
                 window.location.reload();
             }
+            dispatch(switchLoading(false));
         }else{
             setFirstPassword("");
             setSecondPassword("");

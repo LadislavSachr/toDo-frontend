@@ -6,6 +6,7 @@ import { login } from './util'
 import { useSelector, useDispatch } from 'react-redux'
 import { isAuthenticated, authenticate } from '../../store/authenticateSlice'
 import { Navigate } from 'react-router-dom'
+import { switchLoading } from '../../store/isLoadingSlice';
 
 function Login(){
     const [email, setEmail] = useState("");
@@ -16,10 +17,18 @@ function Login(){
 
     async function handleSubmit(e){ // submit handler of form
         e.preventDefault();
+        dispatch(switchLoading(true));
         const response = await login(email,password); // logs in user through backend
         if(response.ok){ // if backend confirms then we authenticated user on frontend
             dispatch(authenticate());
+        }else if(response.status===401){
+            window.alert('Invalid username or password!');
+        }else{
+            window.alert('Something went wrong!');
         }
+        setEmail("");
+        setPassword("");
+        dispatch(switchLoading(false));
     }
 
     if(auth){ // checks if user is authenticated and if yes navigates user to main page
